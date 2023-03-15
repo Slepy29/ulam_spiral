@@ -1,20 +1,20 @@
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class Spiral extends Frame {
-    private int width;
-    private int height;
-    private ArrayList<Integer> aList;
+
     public Spiral(int width, int height){
         super();
-        HashMap<Integer,ArrayList<Integer>> hashMap = new PrimeNumbGen(width,height).gethMap();
-        aList = new ArrayList<>();
-        for (int i = 1; i <= hashMap.size(); i++) {
-            aList.addAll(hashMap.get(i));
-        }
-        this.width = width;
-        this.height = height;
+        this.addComponentListener(
+                new ComponentAdapter() {
+                    @Override
+                    public void componentResized(ComponentEvent e) {
+                        super.componentResized(e);
+                        repaint();
+                    }
+                }
+        );
         this.setVisible(true);
         this.setSize(width,height);
     }
@@ -22,21 +22,22 @@ public class Spiral extends Frame {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        int width = getWidth();
+        int height = getHeight();
         int x = width/2;
         int y = height/2;
         int steps = 0;
         int direction = 0;
         int val =1;
-
-        while(val<=(height<=width?height*height*10:width*width*10)) {
+        boolean[] arr = new PrimeNumbGen(width,height).getPrimesArr();
+        while(val<=(height<=width?height*height:width*width)) {
             switch (direction){
                 case 0 -> { //right
                     //g.setColor(Color.BLACK);
                     steps++;
                     for (int i = 0; i < steps; i++) {
-                        if (aList.contains(val)){
+                        if (arr[val]){
                             g.drawLine(x,y,x,y);
-                            aList.remove(val);
                         }
                         x++;
                         val++;
@@ -46,9 +47,8 @@ public class Spiral extends Frame {
                 case 1 -> { //up
                     //g.setColor(Color.BLUE);
                     for (int i = 0; i < steps; i++) {
-                        if (aList.contains(val)){
+                        if (arr[val]){
                             g.drawLine(x,y,x,y);
-                            aList.remove(val);
                         }
                         y--;
                         val++;
@@ -59,9 +59,8 @@ public class Spiral extends Frame {
                     //g.setColor(Color.RED);
                     steps++;
                     for (int i = 0; i < steps; i++) {
-                        if (aList.contains(val)){
+                        if (arr[val]){
                             g.drawLine(x,y,x,y);
-                            aList.remove(val);
                         }
                         x--;
                         val++;
@@ -71,9 +70,8 @@ public class Spiral extends Frame {
                 case 3 -> { //down
                     //g.setColor(Color.YELLOW);
                     for (int i = 0; i < steps; i++) {
-                        if (aList.contains(val)){
+                        if (arr[val]){
                             g.drawLine(x,y,x,y);
-                            aList.remove(val);
                         }
                         y++;
                         val++;
