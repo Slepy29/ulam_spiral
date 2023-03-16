@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        //new PrimeNumbGen(20,10);
+        //new PrimeNumbGen(10,20);
         new Spiral(720,480);
         //new Spiral(1920,1080);
 
