@@ -1,9 +1,8 @@
 public class Main {
     public static void main(String[] args) {
-        //new PrimeNumbGen(10,20);
+        //new PrimeNumbGen(30,20);
         new Spiral(720,480);
         //new Spiral(1920,1080);
-
         /*HashMap<Integer,String> hashMap = new HashMap<>();
         hashMap.put(1,"a");
         hashMap.put(2,"b");
